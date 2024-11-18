@@ -1,5 +1,4 @@
 // YOUR CODE HERE
-/ YOUR CODE HERE
 
 const radioInput= document.querySelector("#fav_color");
 const radioOutput = document.querySelector("#radio-output"); 
@@ -47,32 +46,51 @@ const checkNumber = (e) => {
 numInput.addEventListener('change', checkNumber);
 
 //get all elements with the class "continent"
-const continents=document.querySelectorAll('.continet'); 
+const correctContinents=[
+ "north america", "europe","asia","south america", "africa", "australia", "antartica"
+]; 
 
-//all the "hidden" class to all continent elements initially 
-continents.forEach(continent=>{
-    continent.classList.add('hidden');
-});
+const continentImages = {
+    "north america": document.getElementById("north-america"), 
+    "europe": document.getElementById("europe"), 
+    "aisa": document.getElementById("asia"), 
+    "south america": document.getElementById("south-america"), 
+    "africa": document.getElementById("africa"), 
+    "australia": document.getElementById("australia"), 
+    "antartica": document.getElementById("antartica")
+}; 
+
+const srAlert = document.getElementById("sr-continent-alert"); 
+const textInput = document.getElementById("text-input");
+
+let guessedContinents=0; 
+
+const checkContinent=(e)=> { 
+    const continent= e.target.value.toLowerCase().trim(); 
+
+    if (correctContinents.includes(continent)){
+        
+        if (!continentImages[continet].classList.contains('hidden')){
+            srAlert.innerHTML= `${continent} has already been selected.`;
+        }else{
+           
+            continentImages[continent].classList.remove('hidden'); 
+            guessedContinents++;
+            
+            srAlert.innerHTML=`${continent}is a continent. ${guessedContinents}out of 7.`
+        }
+    }else{
+        srAlert.innerHTML=`${continent}is not a continent.`;
+    }
+
+    e.target.select();
+};
+
+textInput.addEventListener('change',checkContinent);
 
 
-// funtion to handle user input and reveal the corresponding continent image function revealContinent(userinput){}
-const input=upperInput.toLowerCase();
-
-let continentFound = false; 
 
 
-const continentName = continent.id.toLowerCase();
 
-if(continentName===input){
-    continent.classList.Remove('hidden');
-    continentFound= true; 
-}
 
-let messageElement = document.getElementById("message");
-if(messageElement){
-    messageElement.textContent="invalid continent name";
-}
-
-// getRandomInt() - gets a random number between 1 and 100
-// is_dark(hex) - takes in a hex number (for example #123456) and returns true if it's dark and false if it's light.
 
